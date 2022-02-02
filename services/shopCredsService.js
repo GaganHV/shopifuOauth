@@ -1,7 +1,6 @@
 import db from "./dbService.js";
 
 async function getShopCreds(shop) {
-    console.log(shop)
     const results = await db.query(`select * from shop_creds where shop = ?`, [shop]);
     console.log(results)
     return results;
@@ -14,7 +13,14 @@ async function insertShopCreds(sessionJson) {
     return result
 }
 
+async function deleteShopCreds(shop) {
+    const result = await db.query(`delete from shop_creds where shop = ?`, [shop]);
+    console.log('deleting shop creds shop: ',shop,' response: ',result)
+    return result
+}
+
 export default {
     getShopCreds,
-    insertShopCreds
+    insertShopCreds,
+    deleteShopCreds
 }
