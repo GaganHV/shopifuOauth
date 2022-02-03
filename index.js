@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { Shopify, ApiVersion } from "@shopify/shopify-api";
 import shopCredsService from './services/shopCredsService.js';
 import webhookConfig from "./config/webhookConfig.js";
+
 dotenv.config();
 
 const host = "127.0.0.1";
@@ -53,7 +54,7 @@ app.get('/auth/callback', async (req, res) => {
     const responseWebhook = await Shopify.Webhooks.Registry.registerAll(webhookConfig.getAllRegsiterWebhooks(token));
     console.log(responseWebhook);
 
-    await shopCredsService.insertShopCreds(token)
+    await shopCredsService.insertShopCreds(token);
 
     res.redirect(`https://${token.shop}/admin/apps/oauthg`)
 })
